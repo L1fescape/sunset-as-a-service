@@ -1,0 +1,24 @@
+{
+  "name": "sunset-as-a-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L1fescape/sunset-as-a-service.git"
+  },
+  "author": "Andrew Kennedy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/L1fescape/sunset-as-a-service/issues"
+  },
+  "homepage": "https://github.com/L1fescape/sunset-as-a-service#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {}
+}
