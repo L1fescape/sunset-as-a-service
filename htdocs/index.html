@@ -8,25 +8,24 @@
 </head>
 <body>
   <h1>Sunset as a Service</h1>
-  <section>
-    <h2>1/2/17</h2>
-    <div class="video">
-      <iframe src="https://www.youtube.com/embed/U1e8QyG9ly0" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
+  <div id="app"></div>
+  <script>
+    function renderVideo(video) {
+      let template = `
+        <h2>${video.title}</h2>
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/${video.videoId}" frameborder="0" allowfullscreen></iframe>
+        </div>
+      `;
 
-  <section>
-    <h2>1/1/17</h2>
-    <div class="video">
-      <iframe src="https://www.youtube.com/embed/mttwxHnH6jo" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
+      let elem = document.createElement('section');
+      elem.innerHTML = template;
+      document.getElementById('app').appendChild(elem);
+    }
 
-  <section>
-    <h2>12/31/16</h2>
-    <div class="video">
-      <iframe src="https://www.youtube.com/embed/7T4Q7a6zkrs" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
+    fetch('/list').then(results => results.json()).then(videos => {
+      videos.forEach(video => renderVideo(video))
+    });
+  </script>
 </body>
 </html>

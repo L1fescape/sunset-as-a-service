@@ -18,7 +18,9 @@
   "homepage": "https://github.com/L1fescape/sunset-as-a-service#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "moment": "^2.17.1",
+    "request": "^2.79.0"
   },
   "devDependencies": {}
 }
