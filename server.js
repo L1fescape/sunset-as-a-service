@@ -16,8 +16,8 @@ const channelId = 'UCuyMdj0yUzGSz2wT-uLt6fA';
 const apiKey = process.env.API_KEY;
 const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&key=${apiKey}&maxResults=50`
 
-function log(msg) {
-  console.log(moment().format(), ' - ', msg);
+function log() {
+  console.log(moment().format(), ' - ', [].slice.call(arguments).join(', '));
 }
 
 let lastFetched = null;
@@ -25,12 +25,10 @@ function shouldRefreshVideoList() {
   let now = moment();
 
   if (!lastFetched) {
-    lastFetched = now;
     return true;
   }
 
   let shouldRefresh = now.diff(lastFetched, 'hours') > 2
-  lastFetched = now;
   return shouldRefresh;
 }
 
@@ -45,7 +43,8 @@ function parseVideoResponse(response) {
     if (item.id.kind === 'youtube#video') {
       parsedVideos.push({
         title: item.snippet.title,
-        videoId: item.id.videoId
+        videoId: item.id.videoId,
+        date: item.snippet.publishedAt
       })
     }
   });
@@ -61,8 +60,12 @@ function getVideoList() {
 
     log('fetching video list');
     request(url, function (error, response, body) {
+      lastFetched = moment();
+
       if (!error && response.statusCode == 200) {
         videoList = parseVideoResponse(body);
+      } else {
+        log(`error: ${error}`, `status: ${response.statusCode}`)
       }
       resolve(videoList);
     })
@@ -78,6 +81,9 @@ app.get("*", function(req, res) {
 })
 
 app.listen(PORT, function() {
-  console.log(`running on ${PORT}`)
+  log(`running on ${PORT}`)
+  if (!apiKey) {
+    log('no api key provided')
+  }
   getVideoList();
 })

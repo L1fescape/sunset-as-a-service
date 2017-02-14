@@ -24,7 +24,8 @@
     }
 
     fetch('/list').then(results => results.json()).then(videos => {
-      videos.forEach(video => renderVideo(video))
+      videos.sort((a, b) => new Date(b.date) - new Date(a.date));
+      videos.forEach(renderVideo)
     });
   </script>
 </body>
