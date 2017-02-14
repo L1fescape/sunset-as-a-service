@@ -8,6 +8,11 @@ html, body {
   background: #ECF0F1;
 }
 
+#app {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
 section {
   padding: 2em;
   margin: 2em;
